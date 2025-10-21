@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# Crawl delay (in seconds)
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://seu-dominio.com/sitemap.xml
+
