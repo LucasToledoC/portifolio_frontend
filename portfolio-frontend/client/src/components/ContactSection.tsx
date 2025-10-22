@@ -18,7 +18,7 @@ export default function ContactSection() {
           <p className="text-gray-400 mb-6 text-base sm:text-lg max-w-2xl mx-auto">
             Estou sempre aberto a novas oportunidades, ideias e colaborações.
             Sinta-se à vontade para me contatar pelos botões abaixo — respondo
-            por email ou pelo LinkedIn.
+            pelo Whatsapp ou pelo LinkedIn.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
