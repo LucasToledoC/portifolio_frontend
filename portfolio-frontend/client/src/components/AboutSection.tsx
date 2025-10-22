@@ -10,16 +10,17 @@ export default function AboutSection() {
 
         <div className="bg-gray-900 rounded-lg p-8 mb-12">
           <p className="text-lg text-gray-300 leading-relaxed mb-6">
-            Sou um estudante dedicado de Engenharia de Software na{" "}
+            Estou cursando Engenharia de Software na{" "}
             <strong>FIAP (Faculdade de Informática e Administração Paulista)</strong>,
-            com início em 03/2025 e previsão de conclusão em 12/2028. Com sede em São
-            Paulo, Brasil, sou apaixonado por tecnologia e busco constantemente
-            aprimorar minhas habilidades em desenvolvimento de software.
+            minha formação teve início em 03/2025 e tem previsão de conclusão em 12/2028. 
+            Moro em São Paulo na capital, na zona oeste. Tenho 18 anos e amo implementar 
+            soluções tecnológicas que impactam positivamente a vida das pessoas.
           </p>
           <p className="text-lg text-gray-300 leading-relaxed">
-            Minha jornada é marcada pela curiosidade e pelo desejo de criar soluções
-            inovadoras. Estou sempre em busca de novos desafios que me permitam
-            crescer como profissional e contribuir para projetos significativos.
+            Sou uma pessoa dedicada, e esforçada, sempre procurando aprender e melhorar
+            tanto pessoalmente quanto profissionalmente. Tenho paixão pela tecnologia e
+            estou sempre buscando maneiras para expandir meus conhecimentos e habilidades.
+            Meu objetivo após concluir a graduação é fazer uma pós em Engenharia de Prompt.
           </p>
         </div>
 

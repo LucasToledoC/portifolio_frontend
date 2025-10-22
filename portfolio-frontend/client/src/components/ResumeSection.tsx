@@ -2,11 +2,12 @@ import { Download } from "lucide-react";
 
 export default function ResumeSection() {
   const handleDownloadResume = () => {
-    // Create a simple PDF resume (placeholder)
-    // In production, you would link to an actual resume file
-    const link = document.createElement("a");
-    link.href = "/resume.pdf"; // Place your resume in public folder
-    link.download = "Lucas_Toledo_Cortonezi_Resume.pdf";
+  // Use the PDF placed in the Vite `public/` folder.
+  // Files in `public` are served from the site root, so use an absolute path to avoid
+  // broken downloads when the app is on a nested route.
+  const link = document.createElement("a");
+  link.href = "/LucasToledoCurriculo.pdf"; // place the file in `public/` at project root
+  link.download = "Lucas_Toledo_Cortonezi_Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

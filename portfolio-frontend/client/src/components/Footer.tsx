@@ -107,6 +107,15 @@ export default function Footer({ visits }: FooterProps) {
           {/* Visit Counter */}
           <div className="text-gray-400 text-sm">
             <span>👁️ {visits.toLocaleString("pt-BR")} visitantes</span>
+            <span className="mx-3">•</span>
+            <a
+              href="https://portfolio-api-g4ab.onrender.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors text-sm"
+            >
+              admin
+            </a>
           </div>
         </div>
       </div>
