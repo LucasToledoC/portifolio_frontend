@@ -24,13 +24,13 @@ export default function AboutSection() {
           </p>
         </div>
 
-        {/* Social Links */}
-        <div className="flex gap-6 justify-center">
+        {/* Social Links: grid on mobile (2 columns), horizontal on sm+ */}
+        <div className="grid grid-cols-2 gap-3 place-items-center sm:flex sm:gap-6 sm:justify-center">
           <a
             href="https://br.linkedin.com/in/lucas-toledo-cortonezi-10a851350"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-blue-600 rounded-lg transition-colors"
+            className="w-full sm:w-auto flex items-center gap-2 px-4 py-3 bg-gray-900 hover:bg-blue-600 rounded-lg transition-colors justify-center"
           >
             <Linkedin className="w-5 h-5" />
             <span className="font-semibold">LinkedIn</span>
@@ -39,7 +39,7 @@ export default function AboutSection() {
             href="https://github.com/LucasToledoC"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-gray-700 rounded-lg transition-colors"
+            className="w-full sm:w-auto flex items-center gap-2 px-4 py-3 bg-gray-900 hover:bg-gray-700 rounded-lg transition-colors justify-center"
           >
             <Github className="w-5 h-5" />
             <span className="font-semibold">GitHub</span>
@@ -48,7 +48,7 @@ export default function AboutSection() {
             href="https://www.instagram.com/alem4ao/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-pink-600 rounded-lg transition-colors"
+            className="col-span-2 sm:col-auto w-full sm:w-auto flex items-center gap-2 px-4 py-3 bg-gray-900 hover:bg-pink-600 rounded-lg transition-colors justify-center"
           >
             <Instagram className="w-5 h-5" />
             <span className="font-semibold">Instagram</span>

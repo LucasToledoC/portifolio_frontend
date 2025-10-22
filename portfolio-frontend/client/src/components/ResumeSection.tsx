@@ -27,7 +27,7 @@ export default function ResumeSection() {
 
           <button
             onClick={handleDownloadResume}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg"
+            className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors text-base sm:text-lg w-full sm:w-auto justify-center"
           >
             <Download className="w-6 h-6" />
             Baixar Currículo (PDF)

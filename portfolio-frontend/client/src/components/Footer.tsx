@@ -63,12 +63,12 @@ export default function Footer({ visits }: FooterProps) {
           {/* Social Links */}
           <div>
             <h3 className="text-lg font-bold text-white mb-4">Redes Sociais</h3>
-            <div className="flex gap-4">
+            <div className="grid grid-cols-2 gap-4 place-items-center md:flex md:gap-4 md:justify-start">
               <a
                 href="https://github.com/LucasToledoC"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-full flex justify-center text-gray-400 hover:text-white transition-colors md:w-auto"
                 aria-label="GitHub"
               >
                 <Github className="w-6 h-6" />
@@ -77,7 +77,7 @@ export default function Footer({ visits }: FooterProps) {
                 href="https://br.linkedin.com/in/lucas-toledo-cortonezi-10a851350"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-full flex justify-center text-gray-400 hover:text-white transition-colors md:w-auto"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-6 h-6" />
@@ -86,7 +86,7 @@ export default function Footer({ visits }: FooterProps) {
                 href="https://www.instagram.com/alem4ao/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="w-full flex justify-center text-gray-400 hover:text-white transition-colors md:w-auto"
                 aria-label="Instagram"
               >
                 <Instagram className="w-6 h-6" />
@@ -107,15 +107,6 @@ export default function Footer({ visits }: FooterProps) {
           {/* Visit Counter */}
           <div className="text-gray-400 text-sm">
             <span>👁️ {visits.toLocaleString("pt-BR")} visitantes</span>
-            <span className="mx-3">•</span>
-            <a
-              href="https://portfolio-api-g4ab.onrender.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
-            >
-              admin
-            </a>
           </div>
         </div>
       </div>

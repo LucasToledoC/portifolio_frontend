@@ -1,187 +1,61 @@
-import { useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    nome: "",
-    email: "",
-    mensagem: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      // In production, you would send this to your backend
-      // For now, we'll just show a success message
-      console.log("Form submitted:", formData);
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      setSubmitted(true);
-      setFormData({ nome: "", email: "", mensagem: "" });
-
-      // Reset success message after 3 seconds
-      setTimeout(() => setSubmitted(false), 3000);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const currentYear = new Date().getFullYear();
 
   return (
-    <section id="contato" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold text-white mb-12 text-center">
+    <section id="contato" className="py-16 px-4 sm:px-6 lg:px-8 bg-black">
+      <div className="max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
           Entre em Contato
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold text-white mb-6">
-                Vamos conversar!
-              </h3>
-              <p className="text-gray-400 mb-8">
-                Estou sempre aberto a novas oportunidades, ideias e colaborações.
-                Sinta-se livre para entrar em contato comigo através do formulário
-                ou pelos canais abaixo.
-              </p>
-            </div>
+        <div className="bg-gray-900 rounded-lg p-6 sm:p-10 border border-gray-800">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+            Vamos conversar!
+          </h3>
 
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <MapPin className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-white">Localização</h4>
-                  <p className="text-gray-400">São Paulo, Brasil</p>
-                </div>
-              </div>
+          <p className="text-gray-400 mb-6 text-base sm:text-lg max-w-2xl mx-auto">
+            Estou sempre aberto a novas oportunidades, ideias e colaborações.
+            Sinta-se à vontade para me contatar pelos botões abaixo — respondo
+            por email ou pelo LinkedIn.
+          </p>
 
-              <div className="flex items-start gap-4">
-                <Mail className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-white">Email</h4>
-                  <a
-                    href="mailto:lucastoledocort25@gmail.com"
-                    className="text-blue-400 hover:text-blue-300"
-                  >
-                    lucastoledocort25@gmail.com
-                  </a>
-                </div>
-              </div>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="https://wa.me/5511943693412"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto text-center px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
+            >
+              WhatsApp
+            </a>
 
-              <div className="flex items-start gap-4">
-                <Phone className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-white">Telefone</h4>
-                  <a
-                    href="tel:+5511943693412"
-                    className="text-blue-400 hover:text-blue-300"
-                  >
-                    +55 (11) 94369-3412
-                  </a>
-                </div>
-              </div>
-            </div>
+            <a
+              href="https://br.linkedin.com/in/lucas-toledo-cortonezi-10a851350"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto text-center px-6 py-3 border border-gray-700 text-gray-200 rounded-lg hover:border-gray-500 transition-colors"
+            >
+              Ver no LinkedIn
+            </a>
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-gray-900 rounded-lg p-8 border border-gray-800">
-            {submitted ? (
-              <div className="text-center py-12">
-                <div className="text-5xl mb-4">✓</div>
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  Mensagem Enviada!
-                </h3>
-                <p className="text-gray-400">
-                  Obrigado por entrar em contato. Responderei em breve!
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="nome"
-                    className="block text-sm font-semibold text-white mb-2"
-                  >
-                    Nome
-                  </label>
-                  <input
-                    type="text"
-                    id="nome"
-                    name="nome"
-                    value={formData.nome}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="Seu nome"
-                  />
-                </div>
+          <div className="mt-6 space-y-4 text-gray-400">
+            <div className="flex items-center justify-center gap-3">
+              <MapPin className="w-5 h-5 text-blue-400" />
+              <span>São Paulo, Brasil</span>
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-semibold text-white mb-2"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="seu.email@example.com"
-                  />
-                </div>
+            <div className="flex items-center justify-center gap-3">
+              <Mail className="w-5 h-5 text-blue-400" />
+              <a href="mailto:lucastoledocort25@gmail.com" className="text-blue-400">lucastoledocort25@gmail.com</a>
+            </div>
 
-                <div>
-                  <label
-                    htmlFor="mensagem"
-                    className="block text-sm font-semibold text-white mb-2"
-                  >
-                    Mensagem
-                  </label>
-                  <textarea
-                    id="mensagem"
-                    name="mensagem"
-                    value={formData.mensagem}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-2 bg-gray-800 border border-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
-                    placeholder="Sua mensagem aqui..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {loading ? "Enviando..." : "Enviar Mensagem"}
-                </button>
-              </form>
-            )}
+            <div className="flex items-center justify-center gap-3">
+              <Phone className="w-5 h-5 text-blue-400" />
+              <a href="tel:+5511943693412" className="text-blue-400">+55 (11) 94369-3412</a>
+            </div>
           </div>
         </div>
       </div>

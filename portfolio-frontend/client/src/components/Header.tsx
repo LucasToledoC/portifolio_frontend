@@ -45,9 +45,9 @@ export default function Header() {
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button (shift left on small screens) */}
         <button
-          className="md:hidden"
+          className="md:hidden -mr-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >

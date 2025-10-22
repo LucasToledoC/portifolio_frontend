@@ -11,16 +11,16 @@ export default function HeroSection() {
         <p className="text-xl sm:text-2xl text-gray-400 mb-12 font-light">
           Desenvolvedor e estudante de Engenharia de Software
         </p>
-        <div className="flex gap-4 justify-center flex-wrap">
+        <div className="flex gap-3 justify-center flex-wrap">
           <a
             href="#projetos"
-            className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            className="px-4 sm:px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
             Ver Projetos
           </a>
           <a
             href="#contato"
-            className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-black transition-colors"
+            className="px-4 sm:px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-black transition-colors"
           >
             Entrar em Contato
           </a>
