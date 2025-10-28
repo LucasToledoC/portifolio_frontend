@@ -74,4 +74,12 @@ jobs:
             echo "No REPO_WRITE_TOKEN provided; attempting push with GITHUB_TOKEN"
           fi
           # push to dedicated snapshots branch to avoid triggering Vercel redeploy on main
-          git push origin HEAD:snapshots
+          # try a normal push first; if it's rejected because the remote moved forward,
+          # fall back to a safe force-with-lease push so runs don't fail when concurrent
+          # workflow executions race to update the branch.
+          if git push origin HEAD:snapshots; then
+            echo "push succeeded"
+          else
+            echo "push rejected, attempting force-with-lease"
+            git push --force-with-lease origin HEAD:snapshots
+          fi
