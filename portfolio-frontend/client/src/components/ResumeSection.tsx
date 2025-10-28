@@ -34,7 +34,7 @@ export default function ResumeSection() {
           </button>
 
           <p className="text-gray-500 text-sm mt-6">
-            Última atualização: {new Date().toLocaleDateString("pt-BR")}
+            Última atualização:{new Date().toLocaleDateString("pt-BR")}
           </p>
         </div>
       </div>
