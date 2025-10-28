@@ -12,6 +12,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # avoid persisting the automatically-provided GITHUB_TOKEN credentials
+          # so we can set an explicit remote URL using a personal access token (REPO_WRITE_TOKEN)
+          persist-credentials: false
       - name: Fetch API snapshots
         env:
           API_BASE: ${{ secrets.API_BASE_URL }}
