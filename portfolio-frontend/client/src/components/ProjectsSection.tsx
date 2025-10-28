@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchWithSharedFallback } from "../lib/fetchWithSharedFallback";
 import { Github, ExternalLink } from "lucide-react";
 
 interface Project {
@@ -13,19 +14,25 @@ interface Project {
 export default function ProjectsSection() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [source, setSource] = useState<"api" | "snapshot" | null>(null);
+  const [snapshotUpdatedAt, setSnapshotUpdatedAt] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
+      setLoading(true);
+      setSource(null);
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/projetos`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setProjects(data);
-        }
+        const API = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/projetos`;
+        const SNAP_BASE = import.meta.env.VITE_SNAPSHOTS_URL ||
+          "https://raw.githubusercontent.com/LucasToledoC/portifolio_frontend/snapshots/client/public/api-snapshots";
+        const SNAP = `${SNAP_BASE}/projects.json`;
+        const res = await fetchWithSharedFallback<Project[]>(API, SNAP, 6000);
+        setProjects(res.data || []);
+        setSource(res.source);
+        if (res.updatedAt) setSnapshotUpdatedAt(res.updatedAt);
       } catch (error) {
         console.error("Error fetching projects:", error);
+        setProjects([]);
       } finally {
         setLoading(false);
       }
@@ -45,13 +52,51 @@ export default function ProjectsSection() {
           <div className="text-center py-12">
             <p className="text-gray-400">Carregando projetos...</p>
           </div>
-        ) : projects.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-400">Nenhum projeto adicionado ainda.</p>
-          </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
+          <>
+            {source === "snapshot" && (
+              <div className="mb-6 text-center">
+                <div className="inline-flex items-center gap-3 px-4 py-2 rounded bg-yellow-900 text-yellow-200">
+                  <span>Mostrando backup (offline).</span>
+                  {snapshotUpdatedAt && (
+                    <small className="text-xs text-yellow-300">Última atualização: {new Date(snapshotUpdatedAt).toLocaleString()}</small>
+                  )}
+                  <button
+                    onClick={() => {
+                      setLoading(true);
+                      // re-run the effect by calling fetch directly
+                      (async () => {
+                        try {
+                          const API = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/projetos`;
+                          const SNAP_BASE = import.meta.env.VITE_SNAPSHOTS_URL ||
+                            "https://raw.githubusercontent.com/LucasToledoC/portifolio_frontend/snapshots/client/public/api-snapshots";
+                          const SNAP = `${SNAP_BASE}/projects.json`;
+                          const res = await fetchWithSharedFallback<Project[]>(API, SNAP, 8000);
+                          setProjects(res.data || []);
+                          setSource(res.source);
+                          if (res.updatedAt) setSnapshotUpdatedAt(res.updatedAt);
+                        } catch (e) {
+                          console.error(e);
+                        } finally {
+                          setLoading(false);
+                        }
+                      })();
+                    }}
+                    className="ml-3 px-3 py-1 bg-yellow-800 text-yellow-100 rounded hover:opacity-90"
+                  >
+                    Tentar recarregar
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {projects.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-400">Nenhum projeto adicionado ainda.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {projects.map((project) => (
               <div
                 key={project.id}
                 className="bg-gray-900 rounded-lg p-6 shadow-md hover:shadow-lg hover:border-blue-500 border border-gray-800 transition-all"
@@ -99,8 +144,10 @@ export default function ProjectsSection() {
                   )}
                 </div>
               </div>
-            ))}
-          </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>

@@ -1,0 +1,47 @@
+name: Update API snapshots (push to snapshots branch)
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # every 30 minutes
+  workflow_dispatch: {}
+
+jobs:
+  update-snapshots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch API snapshots
+        env:
+          API_BASE: ${{ secrets.API_BASE_URL }}
+        run: |
+          set -e
+          mkdir -p client/public/api-snapshots
+          now=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          # projects
+          if curl -fsS "$API_BASE/projetos" -o /tmp/projects.json; then
+            jq --arg now "$now" '. as $d | {updatedAt: $now, data: $d}' /tmp/projects.json > client/public/api-snapshots/projects.json
+          else
+            echo '{"updatedAt":"'$now'","data":[]}' > client/public/api-snapshots/projects.json
+          fi
+          # certificates
+          if curl -fsS "$API_BASE/certificados" -o /tmp/certificates.json; then
+            jq --arg now "$now" '. as $d | {updatedAt: $now, data: $d}' /tmp/certificates.json > client/public/api-snapshots/certificates.json
+          else
+            echo '{"updatedAt":"'$now'","data":[]}' > client/public/api-snapshots/certificates.json
+          fi
+      - name: Commit and push snapshots to snapshots branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add client/public/api-snapshots/*.json || true
+          if git diff --quiet --cached; then
+            echo "no changes to commit"
+          else
+            git commit -m "chore: update api snapshots"
+          fi
+          # push to dedicated snapshots branch to avoid triggering Vercel redeploy on main
+          git push origin HEAD:snapshots

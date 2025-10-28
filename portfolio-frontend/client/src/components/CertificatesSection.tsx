@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchWithSharedFallback } from "../lib/fetchWithSharedFallback";
 
 interface Certificate {
   id: number;
@@ -14,25 +15,31 @@ export default function CertificatesSection() {
   const [loading, setLoading] = useState(true);
   const [selectedOrigin, setSelectedOrigin] = useState<string>("");
   const [origins, setOrigins] = useState<string[]>([]);
+  const [source, setSource] = useState<"api" | "snapshot" | null>(null);
+  const [snapshotUpdatedAt, setSnapshotUpdatedAt] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCertificates = async () => {
+      setLoading(true);
+      setSource(null);
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/certificados`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setCertificates(data);
-
-          // Extract unique origins
-          const uniqueOrigins = Array.from(
-            new Set(data.map((c: Certificate) => c.origem).filter(Boolean))
-          ) as string[];
-          setOrigins(uniqueOrigins);
-        }
+        const API = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/certificados`;
+        const SNAP_BASE = import.meta.env.VITE_SNAPSHOTS_URL ||
+          "https://raw.githubusercontent.com/LucasToledoC/portifolio_frontend/snapshots/client/public/api-snapshots";
+        const SNAP = `${SNAP_BASE}/certificates.json`;
+        const res = await fetchWithSharedFallback<Certificate[]>(API, SNAP, 6000);
+        const data = res.data || [];
+        setCertificates(data);
+        // Extract unique origins
+        const uniqueOrigins = Array.from(
+          new Set(data.map((c: Certificate) => c.origem).filter(Boolean))
+        ) as string[];
+        setOrigins(uniqueOrigins);
+        setSource(res.source);
+        if (res.updatedAt) setSnapshotUpdatedAt(res.updatedAt);
       } catch (error) {
         console.error("Error fetching certificates:", error);
+        setCertificates([]);
       } finally {
         setLoading(false);
       }
@@ -95,13 +102,55 @@ export default function CertificatesSection() {
           <div className="text-center py-12">
             <p className="text-gray-400">Carregando certificados...</p>
           </div>
-        ) : filteredCertificates.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-400">Nenhum certificado encontrado.</p>
-          </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filteredCertificates.map((cert) => (
+          <>
+            {source === "snapshot" && (
+              <div className="mb-6 text-center">
+                <div className="inline-flex items-center gap-3 px-4 py-2 rounded bg-yellow-900 text-yellow-200">
+                  <span>Mostrando backup (offline).</span>
+                  {snapshotUpdatedAt && (
+                    <small className="text-xs text-yellow-300">Última atualização: {new Date(snapshotUpdatedAt).toLocaleString()}</small>
+                  )}
+                  <button
+                    onClick={() => {
+                      setLoading(true);
+                      (async () => {
+                        try {
+                          const API = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/certificados`;
+                          const SNAP_BASE = import.meta.env.VITE_SNAPSHOTS_URL ||
+                            "https://raw.githubusercontent.com/LucasToledoC/portifolio_frontend/snapshots/client/public/api-snapshots";
+                          const SNAP = `${SNAP_BASE}/certificates.json`;
+                          const res = await fetchWithSharedFallback<Certificate[]>(API, SNAP, 8000);
+                          const data = res.data || [];
+                          setCertificates(data);
+                          const uniqueOrigins = Array.from(
+                            new Set(data.map((c: Certificate) => c.origem).filter(Boolean))
+                          ) as string[];
+                          setOrigins(uniqueOrigins);
+                          setSource(res.source);
+                          if (res.updatedAt) setSnapshotUpdatedAt(res.updatedAt);
+                        } catch (e) {
+                          console.error(e);
+                        } finally {
+                          setLoading(false);
+                        }
+                      })();
+                    }}
+                    className="ml-3 px-3 py-1 bg-yellow-800 text-yellow-100 rounded hover:opacity-90"
+                  >
+                    Tentar recarregar
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {filteredCertificates.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-400">Nenhum certificado encontrado.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredCertificates.map((cert) => (
               <div
                 key={cert.id}
                 className="bg-gray-900 rounded-lg p-6 border border-gray-800 hover:border-blue-500 transition-colors"
@@ -131,8 +180,10 @@ export default function CertificatesSection() {
                   </a>
                 )}
               </div>
-            ))}
-          </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>
