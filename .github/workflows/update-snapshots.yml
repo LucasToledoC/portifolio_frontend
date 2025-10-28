@@ -34,6 +34,7 @@ jobs:
       - name: Commit and push snapshots to snapshots branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_WRITE_TOKEN: ${{ secrets.REPO_WRITE_TOKEN }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -42,6 +43,13 @@ jobs:
             echo "no changes to commit"
           else
             git commit -m "chore: update api snapshots"
+          fi
+          # If a personal access token is provided in secrets (REPO_WRITE_TOKEN), use it to push
+          if [ -n "$REPO_WRITE_TOKEN" ]; then
+            echo "Using REPO_WRITE_TOKEN to push changes"
+            git remote set-url origin https://x-access-token:${REPO_WRITE_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          else
+            echo "No REPO_WRITE_TOKEN provided; attempting push with GITHUB_TOKEN"
           fi
           # push to dedicated snapshots branch to avoid triggering Vercel redeploy on main
           git push origin HEAD:snapshots
