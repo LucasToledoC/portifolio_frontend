@@ -19,17 +19,36 @@ jobs:
         env:
           API_BASE: ${{ secrets.API_BASE_URL }}
         run: |
-          set -e
+          set -euo pipefail
           mkdir -p client/public/api-snapshots
           now=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          # projects
-          if curl -fsS "$API_BASE/projetos" -o /tmp/projects.json; then
+
+          # helper: try curl up to 3 times with a 30s timeout (helps if Render is waking up)
+          fetch_with_retries() {
+            url="$1"
+            out="$2"
+            tries=0
+            until [ $tries -ge 3 ]
+            do
+              tries=$((tries+1))
+              if curl --max-time 30 -fsS "$url" -o "$out"; then
+                return 0
+              fi
+              echo "attempt $tries for $url failed, retrying in 5s..."
+              sleep 5
+            done
+            return 1
+          }
+
+          # projects (note: backend endpoints are under /api)
+          if fetch_with_retries "$API_BASE/api/projetos" /tmp/projects.json; then
             jq --arg now "$now" '. as $d | {updatedAt: $now, data: $d}' /tmp/projects.json > client/public/api-snapshots/projects.json
           else
             echo '{"updatedAt":"'$now'","data":[]}' > client/public/api-snapshots/projects.json
           fi
+
           # certificates
-          if curl -fsS "$API_BASE/certificados" -o /tmp/certificates.json; then
+          if fetch_with_retries "$API_BASE/api/certificados" /tmp/certificates.json; then
             jq --arg now "$now" '. as $d | {updatedAt: $now, data: $d}' /tmp/certificates.json > client/public/api-snapshots/certificates.json
           else
             echo '{"updatedAt":"'$now'","data":[]}' > client/public/api-snapshots/certificates.json
