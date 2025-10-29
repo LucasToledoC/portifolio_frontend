@@ -75,25 +75,7 @@ jobs:
             echo "push rejected, attempting force-with-lease"
             git push --force-with-lease origin HEAD:snapshots
           fi
-      - name: Publish snapshots to gh-pages (optional)
-        env:
-          REPO_WRITE_TOKEN: ${{ secrets.REPO_WRITE_TOKEN }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          if [ -z "${REPO_WRITE_TOKEN:-}" ]; then
-            echo "REPO_WRITE_TOKEN not set - skipping gh-pages publish"
-            exit 0
-          fi
-          mkdir -p /tmp/snapshot_publish
-          cp client/public/api-snapshots/*.json /tmp/snapshot_publish/ || true
-          cd /tmp/snapshot_publish
-          git init
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add .
-          git commit -m "chore: publish snapshots to gh-pages [ci]" || true
-          git push --force "https://x-access-token:${REPO_WRITE_TOKEN}@github.com/${REPO}.git" HEAD:gh-pages
+      # gh-pages publishing removed — snapshots are pushed to branch `snapshots` only
 
 
 
