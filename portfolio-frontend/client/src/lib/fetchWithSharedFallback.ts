@@ -35,6 +35,7 @@ function generateSnapshotCandidates(snapshotUrl: string) {
   if (jd) {
     const { owner, repo, branch, path } = jd;
     candidates.push(`https://raw.githack.com/${owner}/${repo}/${branch}/${path}`);
+    candidates.push(`https://${owner}.github.io/${repo}/${path}`);
     candidates.push(`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`);
   } else {
     const rg = parseRawGit(snapshotUrl);
