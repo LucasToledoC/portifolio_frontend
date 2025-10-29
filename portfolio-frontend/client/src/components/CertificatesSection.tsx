@@ -25,7 +25,8 @@ export default function CertificatesSection() {
       try {
         const API = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/certificados`;
         const SNAP_BASE = import.meta.env.VITE_SNAPSHOTS_URL ||
-          "https://raw.githubusercontent.com/LucasToledoC/portifolio_frontend/snapshots/client/public/api-snapshots";
+          // prefer jsDelivr CDN for raw repo assets (better CORS & caching)
+          "https://cdn.jsdelivr.net/gh/LucasToledoC/portifolio_frontend@snapshots/client/public/api-snapshots";
         const SNAP = `${SNAP_BASE}/certificates.json`;
         const res = await fetchWithSharedFallback<Certificate[]>(API, SNAP, 6000);
         const data = res.data || [];
@@ -118,7 +119,8 @@ export default function CertificatesSection() {
                         try {
                           const API = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/certificados`;
                           const SNAP_BASE = import.meta.env.VITE_SNAPSHOTS_URL ||
-                            "https://raw.githubusercontent.com/LucasToledoC/portifolio_frontend/snapshots/client/public/api-snapshots";
+                            // prefer jsDelivr CDN for raw repo assets (better CORS & caching)
+                            "https://cdn.jsdelivr.net/gh/LucasToledoC/portifolio_frontend@snapshots/client/public/api-snapshots";
                           const SNAP = `${SNAP_BASE}/certificates.json`;
                           const res = await fetchWithSharedFallback<Certificate[]>(API, SNAP, 8000);
                           const data = res.data || [];

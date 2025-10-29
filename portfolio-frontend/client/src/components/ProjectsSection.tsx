@@ -24,7 +24,8 @@ export default function ProjectsSection() {
       try {
         const API = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/projetos`;
         const SNAP_BASE = import.meta.env.VITE_SNAPSHOTS_URL ||
-          "https://raw.githubusercontent.com/LucasToledoC/portifolio_frontend/snapshots/client/public/api-snapshots";
+          // prefer jsDelivr CDN for raw repo assets (better CORS & caching)
+          "https://cdn.jsdelivr.net/gh/LucasToledoC/portifolio_frontend@snapshots/client/public/api-snapshots";
         const SNAP = `${SNAP_BASE}/projects.json`;
         const res = await fetchWithSharedFallback<Project[]>(API, SNAP, 6000);
         setProjects(res.data || []);
@@ -69,7 +70,8 @@ export default function ProjectsSection() {
                         try {
                           const API = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/projetos`;
                           const SNAP_BASE = import.meta.env.VITE_SNAPSHOTS_URL ||
-                            "https://raw.githubusercontent.com/LucasToledoC/portifolio_frontend/snapshots/client/public/api-snapshots";
+                            // prefer jsDelivr CDN for raw repo assets (better CORS & caching)
+                            "https://cdn.jsdelivr.net/gh/LucasToledoC/portifolio_frontend@snapshots/client/public/api-snapshots";
                           const SNAP = `${SNAP_BASE}/projects.json`;
                           const res = await fetchWithSharedFallback<Project[]>(API, SNAP, 8000);
                           setProjects(res.data || []);
