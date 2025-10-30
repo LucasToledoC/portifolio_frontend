@@ -7,7 +7,7 @@ export default function ResumeSection() {
   // broken downloads when the app is on a nested route.
   const link = document.createElement("a");
   link.href = "/LucasToledoCurriculo.pdf"; // place the file in `public/` at project root
-  link.download = "Lucas_Toledo_Cortonezi_Resume.pdf";
+  link.download = "CurriculoLucasToledo.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
