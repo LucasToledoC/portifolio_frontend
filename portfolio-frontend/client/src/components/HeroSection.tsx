@@ -6,7 +6,7 @@ export default function HeroSection() {
     >
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
-          Olá, eu sou Lucas Toledo Cortonezi
+          Olá, me chamo Lucas Toledo Cortonezi, e sou um
         </h1>
         <p className="text-xl sm:text-2xl text-gray-400 mb-12 font-light">
           Desenvolvedor e estudante de Engenharia de Software
