@@ -1,0 +1,45 @@
+name: Ping backend to reduce cold-starts
+
+on:
+  schedule:
+    - cron: '*/20 * * * *' # every 20 minutes
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping API endpoints
+        env:
+          API_BASE: ${{ secrets.API_BASE_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${API_BASE:-}" ]; then
+            echo "API_BASE_URL not set - skipping ping"
+            exit 0
+          fi
+
+          ping_endpoint() {
+            url="$1"
+            echo "Pinging $url"
+            # try up to 2 times with short timeout
+            tries=0
+            until [ $tries -ge 2 ]
+            do
+              tries=$((tries+1))
+              if curl --max-time 6 -fsS -o /dev/null "$url"; then
+                echo "ok: $url"
+                return 0
+              fi
+              echo "attempt $tries for $url failed, retrying in 3s..."
+              sleep 3
+            done
+            echo "failed to reach $url"
+            return 1
+          }
+
+          ping_endpoint "$API_BASE/api/projetos" || true
+          ping_endpoint "$API_BASE/api/certificados" || true

@@ -53,7 +53,7 @@ function generateSnapshotCandidates(snapshotUrl: string) {
 export async function fetchWithSharedFallback<T>(
   apiUrl: string,
   snapshotUrl: string,
-  timeoutMs = 6000
+  timeoutMs = 12000 // increased to allow Render cold-starts
 ): Promise<FetchResult<T>> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -63,6 +63,7 @@ export async function fetchWithSharedFallback<T>(
     clearTimeout(timer);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = (await res.json()) as T;
+    console.info('[fetchWithSharedFallback] source=api', apiUrl);
     return { data, source: "api" };
   } catch (err) {
     // keep the original error to rethrow if all fallbacks fail
@@ -83,24 +84,28 @@ export async function fetchWithSharedFallback<T>(
           if (snapRes.status === 429) {
             // rate limited: backoff and retry same host
             const backoff = 500 * Math.pow(2, attempt - 1); // 500ms, 1000ms, 2000ms
+            console.warn(`[fetchWithSharedFallback] 429 from ${candidate}, attempt=${attempt}, backoff=${backoff}ms`);
             await sleep(backoff);
             continue;
           }
 
           if (!snapRes.ok) {
-            // try next host
+            console.warn(`[fetchWithSharedFallback] snapshot host ${candidate} returned ${snapRes.status}, trying next host`);
             break;
           }
 
           const json = await snapRes.json();
           if (json && Object.prototype.hasOwnProperty.call(json, "data")) {
+            console.info('[fetchWithSharedFallback] source=snapshot', candidate);
             return { data: json.data as T, source: "snapshot", updatedAt: json.updatedAt };
           }
+          console.info('[fetchWithSharedFallback] source=snapshot (raw)', candidate);
           return { data: json as T, source: "snapshot" };
         } catch (e) {
           // If aborted due to timeout or network error, try again (or next host)
           if (attempt < maxAttemptsPerHost) {
             const backoff = 300 * Math.pow(2, attempt - 1);
+            console.warn(`[fetchWithSharedFallback] error fetching ${candidate} (attempt ${attempt}), retrying after ${backoff}ms`, e);
             await sleep(backoff);
             continue;
           }
