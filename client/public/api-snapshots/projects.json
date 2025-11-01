@@ -1,0 +1,35 @@
+{
+  "updatedAt": "2025-11-01T19:32:50Z",
+  "data": [
+    {
+      "created_at": "2025-10-22T02:23:37.332377",
+      "descricao": "pequeno projeto para uma feira de ciencias de uma escola, com textos informativos e um quiz com recompensas desbloqueaveis.",
+      "id": 5,
+      "link_deploy": "https://amostranuclear.vercel.app",
+      "link_github": "https://github.com/LucasToledoC/AmostraNuclear",
+      "tecnologias": "React Node.js Tailwindcss",
+      "titulo": "Amostra Nuclear",
+      "updated_at": "2025-10-30T22:32:08.688167"
+    },
+    {
+      "created_at": "2025-10-22T01:49:12.911225",
+      "descricao": "Um pequeno site para uma fictícia empresa de engenharia civil, a ideia surgiu de uma empresa real em que um conhecido meu trabalhava, e eu tinha feito uma versão melhor do site da empresa, porem para o fim de compartilhar aqui no meu portfolio eu alterei toda a identidade por uma de exemplo apenas. ",
+      "id": 4,
+      "link_deploy": "https://lucastoledoc.github.io/aplica-oACCT",
+      "link_github": "https://github.com/LucasToledoC/aplica-oACCT",
+      "tecnologias": "HTML CSS JS",
+      "titulo": "Engenharia Civil ",
+      "updated_at": "2025-10-30T22:32:28.731642"
+    },
+    {
+      "created_at": "2025-10-22T14:18:48.994974",
+      "descricao": "Este portifolio, foi feito com frontend, e backend separados, eu hospedei o front no vercel, e o backend ta rodando no render, atravez da api do backend, eu mostro meus projetos e certificados no front, e para adicionar novos, eu tenho uma interface de admin no backend, permitindo a simples inserção de novos dados.",
+      "id": 6,
+      "link_deploy": "https://lucastoledo.vercel.app",
+      "link_github": "https://github.com/LucasToledoC/portifolio_frontend",
+      "tecnologias": "React TailwindCSS Phyton Flask Supabase Vercel e Render",
+      "titulo": "O portifolio",
+      "updated_at": "2025-10-30T22:32:47.928848"
+    }
+  ]
+}
