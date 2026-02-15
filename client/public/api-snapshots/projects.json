@@ -1,0 +1,45 @@
+{
+  "updatedAt": "2026-02-15T09:52:35Z",
+  "data": [
+    {
+      "created_at": "2025-11-20T15:12:31.822788",
+      "descricao": "O ELOY é um Assistente Técnico Corporativo baseado em Inteligência Artificial, projetado para resolver o desafio da dispersão de conhecimento em ambientes empresariais.\nO diferencial técnico, que se traduz em alta precisão, é a arquitetura de Geração Aumentada por Recuperação (RAG). Isso significa que o assistente não apenas usa uma base de conhecimento fixa, mas também injeta dados dinâmicos e atualizados (como informações de equipe e relatórios) diretamente no contexto da IA antes de cada resposta. Isso transforma o ELOY de um simples Q&A em um assistente corporativo altamente contextualizado e preciso.",
+      "id": 9,
+      "link_deploy": "https://www.youtube.com/watch?v=nOA84WwOVWk&t=1s",
+      "link_github": "https://www.youtube.com/watch?v=nOA84WwOVWk&t=1s",
+      "tecnologias": "Python, FastAPI, Groq API, JSON, Requests, Vercel ",
+      "titulo": "EloyAgent",
+      "updated_at": "2025-11-20T15:12:31.911614"
+    },
+    {
+      "created_at": "2025-11-19T21:01:51.721523",
+      "descricao": "A EloyBand é uma solução inteligente que une IoT, análise de comportamento e visualização de dados para melhorar o bem-estar e a produtividade de colaboradores no trabalho remoto ou híbrido.\nA band monitora batimentos cardíacos e proximidade do computador para identificar se o usuário está produzindo, em pausa ou ausente, gerando alertas como overworking ou baixa produtividade.\nTudo acontece de forma não invasiva, priorizando a saúde e o equilíbrio entre vida pessoal e profissional.",
+      "id": 8,
+      "link_deploy": "https://eloydashboard.vercel.app",
+      "link_github": "https://www.youtube.com/watch?v=bENh7ULxUmU&t=1s",
+      "tecnologias": "ESP32 + MQTT, FastAPI , Paho-MQTT, React + Vite, Render, Vercel, Wokwi",
+      "titulo": "EloyBand",
+      "updated_at": "2025-11-20T15:13:29.563135"
+    },
+    {
+      "created_at": "2025-10-22T01:49:12.911225",
+      "descricao": "Um pequeno site para uma fictícia empresa de engenharia civil, a ideia surgiu de uma empresa real em que um conhecido meu trabalhava, e eu tinha feito uma versão melhor do site da empresa, porem para o fim de compartilhar aqui no meu portfolio eu alterei toda a identidade por uma de exemplo apenas. ",
+      "id": 4,
+      "link_deploy": "https://lucastoledoc.github.io/aplica-oACCT",
+      "link_github": "https://github.com/LucasToledoC/aplica-oACCT",
+      "tecnologias": "HTML CSS JS",
+      "titulo": "Engenharia Civil ",
+      "updated_at": "2025-10-30T22:32:28.731642"
+    },
+    {
+      "created_at": "2025-10-22T14:18:48.994974",
+      "descricao": "Este portifolio, foi feito com frontend, e backend separados, eu hospedei o front no vercel, e o backend ta rodando no render, atravez da api do backend, eu mostro meus projetos e certificados no front, e para adicionar novos, eu tenho uma interface de admin no backend, permitindo a simples inserção de novos dados.",
+      "id": 6,
+      "link_deploy": "https://lucastoledo.vercel.app",
+      "link_github": "https://github.com/LucasToledoC/portifolio_frontend",
+      "tecnologias": "React TailwindCSS Phyton Flask Supabase Vercel e Render",
+      "titulo": "O portifolio",
+      "updated_at": "2025-10-30T22:32:47.928848"
+    }
+  ]
+}

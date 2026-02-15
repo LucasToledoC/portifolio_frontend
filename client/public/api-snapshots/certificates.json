@@ -1,0 +1,55 @@
+{
+  "updatedAt": "2026-02-15T09:52:35Z",
+  "data": [
+    {
+      "created_at": "2025-10-22T01:39:16.146321",
+      "data_conclusao": "2025-03-20",
+      "id": 1,
+      "instituicao": "FIAP",
+      "link_certificado": "https://on.fiap.com.br/local/nanocourses/gerar_certificado.php?chave=b3cb7182faca282bdfff638abceafd3e&action=view",
+      "nome": "Design Thinking - Process",
+      "origem": "FIAP",
+      "updated_at": "2025-10-22T01:39:16.207333"
+    },
+    {
+      "created_at": "2025-10-22T01:39:47.086835",
+      "data_conclusao": "2025-03-17",
+      "id": 2,
+      "instituicao": "FIAP",
+      "link_certificado": "https://on.fiap.com.br/local/nanocourses/gerar_certificado.php?chave=772bec914da6d1838e1cc45498423823&action=view",
+      "nome": "Formação Social e Sustentabilidade",
+      "origem": "FIAP",
+      "updated_at": "2025-10-22T01:39:47.174792"
+    },
+    {
+      "created_at": "2025-10-22T01:40:08.361135",
+      "data_conclusao": "2025-07-31",
+      "id": 3,
+      "instituicao": "FIAP",
+      "link_certificado": "https://on.fiap.com.br/local/nanocourses/gerar_certificado.php?chave=cce992729ea68dadedf7da45db0e6840&action=view",
+      "nome": "Front End",
+      "origem": "FIAP",
+      "updated_at": "2025-10-22T01:40:08.425103"
+    },
+    {
+      "created_at": "2025-10-22T01:40:43.391199",
+      "data_conclusao": "2025-08-15",
+      "id": 4,
+      "instituicao": "FIAP",
+      "link_certificado": "https://on.fiap.com.br/local/nanocourses/gerar_certificado.php?chave=d295d14fa96c956ee9452c9ceac698c4&action=view",
+      "nome": "Resolvendo Problemas com Matemática",
+      "origem": "FIAP",
+      "updated_at": "2025-10-22T01:40:43.470338"
+    },
+    {
+      "created_at": "2025-11-20T15:04:54.319529",
+      "data_conclusao": "2025-11-20",
+      "id": 8,
+      "instituicao": "Alura",
+      "link_certificado": "https://cursos.alura.com.br/user/lucastoledocort25/course/computacao-fundamentos-computacao-pensamento-computacional/certificate",
+      "nome": "Pensamento computacional: fundamentos da computação e lógica de programação",
+      "origem": "Alura",
+      "updated_at": "2025-11-20T15:04:54.830931"
+    }
+  ]
+}
